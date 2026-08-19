@@ -112,11 +112,14 @@
     text-transform:uppercase;
     white-space:nowrap;
   }
-  .nav-links a{
-    position:relative;
-    color:var(--ivory-dim);
-    transition:color 0.25s ease;
-    padding-bottom:4px;
+  .nav-links{
+    display:flex;
+    gap:clamp(18px, 2.4vw, 38px);
+    font-family:'Jost', sans-serif;
+    font-size:13px;
+    letter-spacing:0.14em;
+    text-transform:uppercase;
+    white-space:nowrap;
   }
   .nav-links a::after{
     content:'';
@@ -869,17 +872,9 @@
 
   /* ---------- RESPONSIVE ---------- */
   @media (max-width:1080px){
+  @media (max-width:1080px){
     .nav-links, .nav-cta{ display:none; }
     .burger{ display:flex; }
-    .about-grid, .booking-grid, .loc-grid{ grid-template-columns:1fr; }
-    .stat-row{ grid-template-columns:repeat(3,1fr); }
-    .specs-grid{ grid-template-columns:repeat(2,1fr); }
-    .port-grid{ grid-template-columns:repeat(2,1fr); }
-    .insta-grid{ grid-template-columns:repeat(3,1fr); }
-    .foot-grid{ grid-template-columns:1fr; gap:36px; }
-    .foot-bottom{ flex-direction:column; gap:10px; text-align:center; }
-    .f-row{ grid-template-columns:1fr; }
-  }
   @media (max-width:560px){
     .specs-grid{ grid-template-columns:1fr; }
     .port-grid{ grid-template-columns:1fr; }
