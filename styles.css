@@ -577,6 +577,80 @@
     max-width:620px;
   }
 
+  /* ---------- ORÇAMENTO ESTIMADO ---------- */
+  .estimate{ background:var(--black-soft); border-top:1px solid var(--line); border-bottom:1px solid var(--line); }
+  .estimate-box{
+    max-width:720px;
+    margin:0 auto;
+    background:var(--panel);
+    border:1px solid var(--line);
+    padding:44px;
+  }
+  .est-group{ margin-bottom:32px; }
+  .est-label{
+    font-family:'Jost', sans-serif;
+    font-size:11px;
+    letter-spacing:0.12em;
+    text-transform:uppercase;
+    color:var(--ivory-dim);
+    margin-bottom:14px;
+  }
+  .est-options{
+    display:grid;
+    grid-template-columns:repeat(4, 1fr);
+    gap:10px;
+  }
+  .est-chip{
+    background:var(--black);
+    border:1px solid var(--line);
+    color:var(--ivory-dim);
+    padding:14px 8px;
+    text-align:center;
+    font-family:'Jost', sans-serif;
+    transition:all 0.25s ease;
+    display:flex;
+    flex-direction:column;
+    gap:4px;
+  }
+  .est-chip span{ font-size:13px; letter-spacing:0.04em; color:inherit; }
+  .est-chip small{ font-size:11px; color:var(--ivory-dim); opacity:0.75; }
+  .est-chip.active, .est-chip:hover{
+    border-color:var(--gold);
+    color:var(--gold-light);
+  }
+  .est-chip.active{ background:rgba(201,162,75,0.08); }
+  .est-result{
+    border-top:1px solid var(--line);
+    padding-top:32px;
+    text-align:center;
+  }
+  .est-result-label{
+    font-family:'Jost', sans-serif;
+    font-size:11px;
+    letter-spacing:0.12em;
+    text-transform:uppercase;
+    color:var(--gold);
+    margin-bottom:10px;
+  }
+  .est-result-value{
+    font-family:'Cinzel', serif;
+    font-size:clamp(28px, 4vw, 38px);
+    color:var(--ivory);
+    margin-bottom:14px;
+  }
+  .est-disclaimer{
+    color:var(--ivory-dim);
+    font-size:14px;
+    max-width:480px;
+    margin:0 auto 26px;
+  }
+  .est-cta{ display:inline-flex; }
+
+  @media (max-width: 640px){
+    .est-options{ grid-template-columns:repeat(2, 1fr); }
+    .estimate-box{ padding:30px 24px; }
+  }
+
   /* ---------- AGENDAMENTO ---------- */
   .booking{ position:relative; }
   .booking-grid{
