@@ -105,11 +105,12 @@
   .brand img{height:38px; width:auto;}
   .nav-links{
     display:flex;
-    gap:38px;
+    gap:clamp(18px, 2.4vw, 38px);
     font-family:'Jost', sans-serif;
     font-size:13px;
     letter-spacing:0.14em;
     text-transform:uppercase;
+    white-space:nowrap;
   }
   .nav-links a{
     position:relative;
@@ -867,7 +868,7 @@
   }
 
   /* ---------- RESPONSIVE ---------- */
-  @media (max-width:900px){
+  @media (max-width:1080px){
     .nav-links, .nav-cta{ display:none; }
     .burger{ display:flex; }
     .about-grid, .booking-grid, .loc-grid{ grid-template-columns:1fr; }
