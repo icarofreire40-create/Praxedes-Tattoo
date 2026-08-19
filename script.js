@@ -120,6 +120,85 @@
     });
   });
 
+  // ======= ESTIMADOR DE ORÇAMENTO =======
+  // Baseado nos preços reais do catálogo:
+  //  - "Fechamento (30cm)"              -> R$ 899   (peça grande, estilo temático/lettering)
+  //  - "Fechamento Externo ou Interno"  -> R$ 1.499 (manga fechada, estilo oriental/realismo)
+  // Ajuste os valores abaixo (min/max) sempre que atualizar a tabela de preços real.
+  const SIZE_PRICES = {
+    pequena:    { min: 250,  max: 350  }, // até 10cm
+    media:      { min: 500,  max: 700  }, // 10–20cm
+    grande:     { min: 800,  max: 950  }, // 20–30cm — ancorado em "Fechamento (30cm)" R$899
+    fechamento: { min: 1400, max: 1650 }, // manga/perna inteira — ancorado em R$1.499
+  };
+  const SIZE_LABELS = {
+    pequena: 'peça pequena (até 10cm)',
+    media: 'peça média (10–20cm)',
+    grande: 'peça grande (20–30cm)',
+    fechamento: 'fechamento (manga/perna inteira)',
+  };
+  // Multiplicador por estilo: lettering é mais rápido de executar; realismo e oriental
+  // exigem mais tempo de sombreado/detalhe, então custam um pouco mais.
+  const STYLE_MULTIPLIER = {
+    lettering: 0.85,
+    tematico: 1.0,
+    realismo: 1.15,
+    oriental: 1.15,
+  };
+  const STYLE_LABELS = {
+    lettering: 'Lettering',
+    tematico: 'Temático autoral',
+    realismo: 'Realismo P&B',
+    oriental: 'Oriental',
+  };
+
+  const estResultValue = document.getElementById('estResultValue');
+  const estWhatsapp = document.getElementById('estWhatsapp');
+  const sizeOptions = document.getElementById('sizeOptions');
+  const styleOptions = document.getElementById('styleOptions');
+
+  let selectedSize = 'pequena';
+  let selectedStyle = 'lettering';
+
+  function formatBRL(n){
+    return 'R$ ' + Math.round(n).toLocaleString('pt-BR');
+  }
+
+  function updateEstimate(){
+    const base = SIZE_PRICES[selectedSize];
+    const mult = STYLE_MULTIPLIER[selectedStyle];
+    const min = base.min * mult;
+    const max = base.max * mult;
+    estResultValue.textContent = `${formatBRL(min)} – ${formatBRL(max)}`;
+
+    let msg = `Olá! Fiz uma simulação de orçamento no site da Praxedes Tattoo.\n\n`;
+    msg += `*Tamanho:* ${SIZE_LABELS[selectedSize]}\n`;
+    msg += `*Estilo:* ${STYLE_LABELS[selectedStyle]}\n`;
+    msg += `*Estimativa:* ${formatBRL(min)} – ${formatBRL(max)}\n\n`;
+    msg += `Gostaria de confirmar o valor exato e agendar uma consulta.`;
+    estWhatsapp.href = `https://wa.me/${WHATSAPP_NUMBER}?text=${encodeURIComponent(msg)}`;
+  }
+
+  if (sizeOptions && styleOptions) {
+    sizeOptions.querySelectorAll('.est-chip').forEach(chip => {
+      chip.addEventListener('click', () => {
+        sizeOptions.querySelectorAll('.est-chip').forEach(c => c.classList.remove('active'));
+        chip.classList.add('active');
+        selectedSize = chip.dataset.value;
+        updateEstimate();
+      });
+    });
+    styleOptions.querySelectorAll('.est-chip').forEach(chip => {
+      chip.addEventListener('click', () => {
+        styleOptions.querySelectorAll('.est-chip').forEach(c => c.classList.remove('active'));
+        chip.classList.add('active');
+        selectedStyle = chip.dataset.value;
+        updateEstimate();
+      });
+    });
+    updateEstimate();
+  }
+
   // ======= FORMULÁRIO -> ENVIA PARA O WHATSAPP =======
   // Monta uma mensagem a partir dos campos preenchidos e abre o WhatsApp
   // já com o texto pronto para o cliente só confirmar o envio.
