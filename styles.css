@@ -112,15 +112,7 @@
     text-transform:uppercase;
     white-space:nowrap;
   }
-  .nav-links{
-    display:flex;
-    gap:clamp(18px, 2.4vw, 38px);
-    font-family:'Jost', sans-serif;
-    font-size:13px;
-    letter-spacing:0.14em;
-    text-transform:uppercase;
-    white-space:nowrap;
-  }
+
   .nav-links a::after{
     content:'';
     position:absolute;
